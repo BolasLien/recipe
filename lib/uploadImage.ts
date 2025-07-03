@@ -15,15 +15,14 @@ export const uploadImage = async (
   const url = `${supabaseUrl}/storage/v1/object/${bucket}/${encodedPath}`;
 
   await new Promise<void>((resolve, reject) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url);
     xhr.setRequestHeader('apikey', supabaseKey as string);
-    xhr.setRequestHeader('authorization', `Bearer ${supabaseKey}`);
+    xhr.setRequestHeader('Authorization', `Bearer ${supabaseKey}`);
     xhr.setRequestHeader('x-upsert', 'true');
-    xhr.setRequestHeader(
-      'Content-Type',
-      (file as File).type || 'application/octet-stream'
-    );
     xhr.upload.onprogress = (event) => {
       if (onProgress && event.lengthComputable) {
         const percent = Math.round((event.loaded * 100) / event.total);
@@ -38,7 +37,7 @@ export const uploadImage = async (
       }
     };
     xhr.onerror = () => reject(new Error(xhr.statusText));
-    xhr.send(file);
+    xhr.send(formData);
   });
 
   const { data: publicUrlData, error } = supabase.storage
