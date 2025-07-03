@@ -1,13 +1,30 @@
 {
-  "name": "recipe",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "my-recipes-app",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "@supabase/supabase-js": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "tailwindcss": "latest",
+    "postcss": "latest",
+    "autoprefixer": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "prettier": "latest",
+    "@types/react": "latest",
+    "@types/node": "latest",
+    "@types/react-dom": "latest"
+  },
   "packageManager": "pnpm@9.15.4"
 }
