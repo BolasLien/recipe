@@ -15,6 +15,10 @@ export const uploadImage = async (
     xhr.setRequestHeader('apikey', supabaseKey as string);
     xhr.setRequestHeader('authorization', `Bearer ${supabaseKey}`);
     xhr.setRequestHeader('x-upsert', 'true');
+    xhr.setRequestHeader(
+      'Content-Type',
+      (file as File).type || 'application/octet-stream'
+    );
     xhr.upload.onprogress = (event) => {
       if (onProgress && event.lengthComputable) {
         const percent = Math.round((event.loaded * 100) / event.total);
