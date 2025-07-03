@@ -7,7 +7,12 @@ export const uploadImage = async (
 ) => {
   const bucket = 'recipes-images';
 
-  const url = `${supabaseUrl}/storage/v1/object/${bucket}/${path}`;
+  // Encode each segment so paths with spaces or special characters work
+  const encodedPath = path
+    .split('/')
+    .map(encodeURIComponent)
+    .join('/');
+  const url = `${supabaseUrl}/storage/v1/object/${bucket}/${encodedPath}`;
 
   await new Promise<void>((resolve, reject) => {
     const xhr = new XMLHttpRequest();
