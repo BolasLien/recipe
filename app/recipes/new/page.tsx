@@ -37,7 +37,8 @@ export default function NewRecipePage() {
         return;
       }
 
-      // 成功後導向列表頁
+      // 成功提示並導向列表頁
+      alert('新增成功！');
       router.push('/');
     } catch (err) {
       console.error(err);
