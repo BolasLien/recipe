@@ -13,7 +13,9 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "@supabase/supabase-js": "latest"
+    "@supabase/supabase-js": "latest",
+    "react-hook-form": "latest",
+    "react-markdown": "latest"
   },
   "devDependencies": {
     "typescript": "latest",

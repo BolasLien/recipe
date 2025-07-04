@@ -3,7 +3,11 @@
 import { useState } from 'react';
 import { uploadImage } from '../lib/uploadImage';
 
-export default function ImageUploader() {
+export default function ImageUploader({
+  onUploaded,
+}: {
+  onUploaded?: (url: string) => void;
+}) {
   const [progress, setProgress] = useState<number | null>(null);
   const [imageUrl, setImageUrl] = useState<string>('');
 
@@ -19,6 +23,9 @@ export default function ImageUploader() {
       });
 
       setImageUrl(url);
+      if (onUploaded) {
+        onUploaded(url);
+      }
     } catch (err) {
       console.error(err);
       alert('上傳失敗！');
