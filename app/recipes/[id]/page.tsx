@@ -9,7 +9,8 @@ type Props = {
 };
 
 export default async function RecipeDetailPage({ params }: Props) {
-  const { id } = await params;
+  await params;
+  const { id } = params;
 
   const { data, error } = await supabase
     .from('recipes')
@@ -34,9 +35,7 @@ export default async function RecipeDetailPage({ params }: Props) {
 
       <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
 
-      <article className="prose">
-        <ReactMarkdown>{data.content || ''}</ReactMarkdown>
-      </article>
+      <ReactMarkdown className="prose">{data.content || ''}</ReactMarkdown>
     </main>
   );
 }
