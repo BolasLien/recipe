@@ -1,44 +1,52 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
-import ReactMarkdown from 'react-markdown'
-import { supabase } from '../../../lib/supabase'
-import ImageUploader from '../../../components/ImageUploader'
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
+
+const normalizeHeadings = (md: string) =>
+  md.replace(/^(#{1,6})(\S)/gm, '$1 $2');
+import { supabase } from '../../../lib/supabase';
+import ImageUploader from '../../../components/ImageUploader';
 
 type FormValues = {
-  title: string
-  content: string
-  imageUrl: string
-}
+  title: string;
+  content: string;
+  imageUrl: string;
+};
 
 export default function NewRecipePage() {
-  const router = useRouter()
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>()
-  const [imageUrl, setImageUrl] = useState('')
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormValues>();
+  const [imageUrl, setImageUrl] = useState('');
 
   const onSubmit = async (data: FormValues) => {
     try {
       const { error } = await supabase.from('recipes').insert({
         title: data.title,
         content: data.content,
-        image_url: imageUrl || null
-      })
+        image_url: imageUrl || null,
+      });
 
       if (error) {
-        console.error(error)
-        alert('新增失敗')
-        return
+        console.error(error);
+        alert('新增失敗');
+        return;
       }
 
       // 成功後導向列表頁
-      router.push('/')
+      router.push('/');
     } catch (err) {
-      console.error(err)
-      alert('發生錯誤')
+      console.error(err);
+      alert('發生錯誤');
     }
-  }
+  };
 
   return (
     <div className="max-w-2xl mx-auto p-8">
@@ -52,7 +60,9 @@ export default function NewRecipePage() {
             className="w-full border p-2 rounded"
             {...register('title', { required: '標題必填' })}
           />
-          {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
+          {errors.title && (
+            <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
+          )}
         </div>
 
         {/* Markdown 輸入框 */}
@@ -69,16 +79,16 @@ export default function NewRecipePage() {
         <div>
           <label className="block font-medium mb-1">Markdown 預覽</label>
           <div className="border p-4 rounded bg-gray-50 prose">
-            <ReactMarkdown>{watch('content') || ''}</ReactMarkdown>
+            <ReactMarkdown>
+              {normalizeHeadings(watch('content') || '')}
+            </ReactMarkdown>
           </div>
         </div>
 
         {/* 圖片上傳 */}
         <div>
           <label className="block font-medium mb-1">封面照片</label>
-          <ImageUploader
-            onUploaded={(url) => setImageUrl(url)}
-          />
+          <ImageUploader onUploaded={(url) => setImageUrl(url)} />
           {imageUrl && (
             <img src={imageUrl} alt="Uploaded" className="w-48 mt-2 rounded" />
           )}
@@ -92,5 +102,5 @@ export default function NewRecipePage() {
         </button>
       </form>
     </div>
-  )
+  );
 }
