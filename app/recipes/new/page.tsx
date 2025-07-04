@@ -4,9 +4,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
-
-const normalizeHeadings = (md: string) =>
-  md.replace(/^(#{1,6})(\S)/gm, '$1 $2');
 import { supabase } from '../../../lib/supabase';
 import ImageUploader from '../../../components/ImageUploader';
 
@@ -71,17 +68,20 @@ export default function NewRecipePage() {
           <textarea
             rows={10}
             className="w-full border p-2 rounded"
-            {...register('content')}
+            {...register('content', { required: '內容必填' })}
           />
+          {errors.content && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.content.message}
+            </p>
+          )}
         </div>
 
         {/* Markdown 預覽 */}
         <div>
           <label className="block font-medium mb-1">Markdown 預覽</label>
           <div className="border p-4 rounded bg-gray-50 prose">
-            <ReactMarkdown>
-              {normalizeHeadings(watch('content') || '')}
-            </ReactMarkdown>
+            <ReactMarkdown>{watch('content') || ''}</ReactMarkdown>
           </div>
         </div>
 
