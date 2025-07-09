@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default async function RecipeDetailPage({ params }: Props) {
-  const { id } = params;
+  const { id } = await params;
 
   const { data, error } = await supabase
     .from('recipes')
@@ -34,12 +34,20 @@ export default async function RecipeDetailPage({ params }: Props) {
       )}
 
       <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
-      <Link
-        href={`/recipes/${data.id}/edit`}
-        className="inline-block mb-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-      >
-        編輯
-      </Link>
+      <div className="flex space-x-2 mb-4">
+        <Link
+          href="/"
+          className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+        >
+          返回
+        </Link>
+        <Link
+          href={`/recipes/${data.id}/edit`}
+          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+        >
+          編輯
+        </Link>
+      </div>
 
       <article className="markdown">
         <ReactMarkdown>{data.content || ''}</ReactMarkdown>

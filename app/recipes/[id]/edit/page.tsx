@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default async function EditRecipePage({ params }: Props) {
-  const { id } = params;
+  const { id } = await params;
 
   const { data, error } = await supabase
     .from('recipes')
