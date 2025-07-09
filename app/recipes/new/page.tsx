@@ -81,7 +81,7 @@ export default function NewRecipePage() {
         {/* Markdown 預覽 */}
         <div>
           <label className="block font-medium mb-1">Markdown 預覽</label>
-          <div className="border p-4 rounded bg-gray-50 prose">
+          <div className="border p-4 rounded bg-gray-50 markdown">
             <ReactMarkdown>{watch('content') || ''}</ReactMarkdown>
           </div>
         </div>

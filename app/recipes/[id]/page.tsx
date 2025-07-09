@@ -34,7 +34,7 @@ export default async function RecipeDetailPage({ params }: Props) {
 
       <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
 
-      <article className="prose">
+      <article className="markdown">
         <ReactMarkdown>{data.content || ''}</ReactMarkdown>
       </article>
     </main>

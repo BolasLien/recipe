@@ -25,7 +25,6 @@
     "postcss": "latest",
     "autoprefixer": "latest",
     "@tailwindcss/postcss": "latest",
-    "prettier": "latest",
-    "@tailwindcss/typography": "latest"
+    "prettier": "latest"
   }
 }
