@@ -101,12 +101,21 @@ export default function EditRecipeForm({ recipe }: Props) {
           )}
         </div>
 
-        <button
-          type="submit"
-          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-        >
-          更新食譜
-        </button>
+        <div className="flex space-x-2">
+          <button
+            type="submit"
+            className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+          >
+            更新食譜
+          </button>
+          <button
+            type="button"
+            onClick={() => router.push(`/recipes/${recipe.id}`)}
+            className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+          >
+            取消
+          </button>
+        </div>
       </form>
     </div>
   );
