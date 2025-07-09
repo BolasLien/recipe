@@ -1,6 +1,7 @@
 import { supabase } from '../../../lib/supabase';
 import ReactMarkdown from 'react-markdown';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 
 type Props = {
   params: {
@@ -33,6 +34,12 @@ export default async function RecipeDetailPage({ params }: Props) {
       )}
 
       <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
+      <Link
+        href={`/recipes/${data.id}/edit`}
+        className="inline-block mb-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+      >
+        編輯
+      </Link>
 
       <article className="markdown">
         <ReactMarkdown>{data.content || ''}</ReactMarkdown>
