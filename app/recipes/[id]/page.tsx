@@ -9,7 +9,8 @@ type Props = {
   };
 };
 
-export default async function RecipeDetailPage({ params }: Props) {
+export default async function RecipeDetailPage(props: Props) {
+  const { params } = await props;
   const { id } = params;
 
   const { data, error } = await supabase
