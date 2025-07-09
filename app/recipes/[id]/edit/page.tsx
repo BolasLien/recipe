@@ -9,10 +9,12 @@ type Props = {
 };
 
 export default async function EditRecipePage({ params }: Props) {
+  const { id } = params;
+
   const { data, error } = await supabase
     .from('recipes')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single();
 
   if (error || !data) {
