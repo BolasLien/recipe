@@ -2,6 +2,7 @@ import { supabase } from '../../../lib/supabase';
 import ReactMarkdown from 'react-markdown';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import DeleteRecipeButton from '../../../components/DeleteRecipeButton';
 
 type Props = {
   params: {
@@ -47,6 +48,7 @@ export default async function RecipeDetailPage({ params }: Props) {
         >
           編輯
         </Link>
+        <DeleteRecipeButton recipeId={data.id} />
       </div>
 
       <article className="markdown">
