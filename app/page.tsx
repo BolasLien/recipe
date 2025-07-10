@@ -12,9 +12,10 @@ type Recipe = {
 export default async function HomePage({
   searchParams,
 }: {
-  searchParams: { sort?: string };
+  searchParams: { sort?: string } | Promise<{ sort?: string }>;
 }) {
-  const sort = searchParams.sort === 'asc' ? 'asc' : 'desc';
+  const params = await searchParams;
+  const sort = params?.sort === 'asc' ? 'asc' : 'desc';
 
   const { data, error } = await supabase
     .from('recipes')
