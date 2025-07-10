@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase';
 import Link from 'next/link';
+import SortToggle from '../components/SortToggle';
 
 type Recipe = {
   id: string;
@@ -8,11 +9,17 @@ type Recipe = {
   image_url: string | null;
 };
 
-export default async function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: { sort?: string };
+}) {
+  const sort = searchParams.sort === 'asc' ? 'asc' : 'desc';
+
   const { data, error } = await supabase
     .from('recipes')
     .select('id, title, content, image_url')
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: sort === 'asc' });
 
   if (error) {
     console.error(error);
@@ -23,12 +30,15 @@ export default async function HomePage() {
     <main className="max-w-4xl mx-auto p-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold">食譜列表</h1>
-        <Link
-          href="/recipes/new"
-          className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
-        >
-          新增食譜
-        </Link>
+        <div className="flex items-center space-x-4">
+          <SortToggle sort={sort} />
+          <Link
+            href="/recipes/new"
+            className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
+          >
+            新增食譜
+          </Link>
+        </div>
       </div>
 
       <div className="space-y-4">
