@@ -21,7 +21,15 @@ export default async function HomePage() {
 
   return (
     <main className="max-w-4xl mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-6">食譜列表</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold">食譜列表</h1>
+        <Link
+          href="/recipes/new"
+          className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
+        >
+          新增食譜
+        </Link>
+      </div>
 
       <div className="space-y-4">
         {data?.map((recipe) => (
