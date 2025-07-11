@@ -7,6 +7,7 @@ export default function SearchBox() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [keyword, setKeyword] = useState(searchParams.get('q') || '');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,6 +17,7 @@ export default function SearchBox() {
     } else {
       params.delete('q');
     }
+    setLoading(true);
     router.push(`/?${params.toString()}`);
   };
 
@@ -27,12 +29,14 @@ export default function SearchBox() {
         onChange={(e) => setKeyword(e.target.value)}
         placeholder="搜尋食譜"
         className="border p-2 rounded flex-1"
+        disabled={loading}
       />
       <button
         type="submit"
-        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-60"
+        disabled={loading}
       >
-        搜尋
+        {loading ? '搜尋中...' : '搜尋'}
       </button>
     </form>
   );
