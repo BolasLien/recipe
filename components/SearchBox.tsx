@@ -28,14 +28,26 @@ export default function SearchBox() {
 
   return (
     <form onSubmit={handleSubmit} className="flex w-full sm:w-auto space-x-2">
-      <input
-        type="text"
-        value={keyword}
-        onChange={(e) => setKeyword(e.target.value)}
-        placeholder="搜尋食譜"
-        className="border p-2 rounded flex-1"
-        disabled={loading}
-      />
+      <div className="relative flex-1">
+        <input
+          type="text"
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+          placeholder="搜尋食譜"
+          className="border p-2 rounded w-full pr-8"
+          disabled={loading}
+        />
+        {keyword && (
+          <button
+            type="button"
+            onClick={() => setKeyword('')}
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            aria-label="清除搜尋"
+          >
+            ×
+          </button>
+        )}
+      </div>
       <button
         type="submit"
         className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-60"
