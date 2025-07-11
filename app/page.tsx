@@ -26,7 +26,7 @@ export default async function HomePage({
     .order('created_at', { ascending: sort === 'asc' });
 
   if (keyword) {
-    query = query.ilike('title', `%${keyword}%`);
+    query = query.or(`title.ilike.%${keyword}%,content.ilike.%${keyword}%`);
   }
 
   const { data, error } = await query;
@@ -91,7 +91,10 @@ export default async function HomePage({
                 </h2>
                 <p className="text-sm text-gray-600 overflow-hidden text-ellipsis whitespace-nowrap">
                   {recipe.content
-                    ? recipe.content.replace(/\n/g, ' ').slice(0, 50) + '...'
+                    ? highlight(
+                        recipe.content.replace(/\n/g, ' ').slice(0, 50) +
+                          (recipe.content.length > 50 ? '...' : '')
+                      )
                     : ''}
                 </p>
               </div>
