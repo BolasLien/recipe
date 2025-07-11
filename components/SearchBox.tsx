@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function SearchBox() {
@@ -8,6 +8,11 @@ export default function SearchBox() {
   const searchParams = useSearchParams();
   const [keyword, setKeyword] = useState(searchParams.get('q') || '');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setKeyword(searchParams.get('q') || '');
+    setLoading(false);
+  }, [searchParams]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
