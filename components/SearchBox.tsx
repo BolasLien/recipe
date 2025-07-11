@@ -41,7 +41,7 @@ export default function SearchBox() {
           <button
             type="button"
             onClick={() => setKeyword('')}
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600"
             aria-label="清除搜尋"
           >
             ×
