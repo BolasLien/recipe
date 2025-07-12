@@ -30,6 +30,11 @@ export default function SearchBox() {
     navigateWithQuery(keyword);
   };
 
+  const handleClear = () => {
+    setKeyword('');
+    navigateWithQuery('');
+  };
+
   return (
     <form onSubmit={handleSubmit} className="flex w-full sm:w-auto space-x-2">
       <div className="relative flex-1">
@@ -44,10 +49,7 @@ export default function SearchBox() {
         {keyword && (
           <button
             type="button"
-            onClick={() => {
-              setKeyword('');
-              navigateWithQuery('');
-            }}
+            onClick={handleClear}
             className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600"
             aria-label="清除搜尋"
           >
