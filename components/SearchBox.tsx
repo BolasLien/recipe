@@ -9,6 +9,17 @@ export default function SearchBox() {
   const [keyword, setKeyword] = useState(searchParams.get('q') || '');
   const [loading, setLoading] = useState(false);
 
+  const navigateWithQuery = (kw: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (kw) {
+      params.set('q', kw);
+    } else {
+      params.delete('q');
+    }
+    setLoading(true);
+    router.push(`/?${params.toString()}`);
+  };
+
   useEffect(() => {
     setKeyword(searchParams.get('q') || '');
     setLoading(false);
@@ -16,14 +27,7 @@ export default function SearchBox() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const params = new URLSearchParams(searchParams.toString());
-    if (keyword) {
-      params.set('q', keyword);
-    } else {
-      params.delete('q');
-    }
-    setLoading(true);
-    router.push(`/?${params.toString()}`);
+    navigateWithQuery(keyword);
   };
 
   return (
@@ -42,10 +46,7 @@ export default function SearchBox() {
             type="button"
             onClick={() => {
               setKeyword('');
-              const params = new URLSearchParams(searchParams.toString());
-              params.delete('q');
-              setLoading(true);
-              router.push(`/?${params.toString()}`);
+              navigateWithQuery('');
             }}
             className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600"
             aria-label="清除搜尋"
