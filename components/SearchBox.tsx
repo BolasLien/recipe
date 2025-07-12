@@ -40,7 +40,13 @@ export default function SearchBox() {
         {keyword && (
           <button
             type="button"
-            onClick={() => setKeyword('')}
+            onClick={() => {
+              setKeyword('');
+              const params = new URLSearchParams(searchParams.toString());
+              params.delete('q');
+              setLoading(true);
+              router.push(`/?${params.toString()}`);
+            }}
             className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600"
             aria-label="清除搜尋"
           >
