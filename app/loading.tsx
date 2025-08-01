@@ -12,7 +12,10 @@ export default function Loading() {
 
       <div className="space-y-6">
         {[...Array(5)].map((_, i) => (
-          <div key={i} className="flex bg-white rounded-lg overflow-hidden shadow-md animate-pulse">
+          <div
+            key={i}
+            className="flex bg-white rounded-lg overflow-hidden shadow-md animate-pulse"
+          >
             <div className="w-40 h-40 bg-gray-200"></div>
             <div className="p-4 flex-grow">
               <div className="h-6 w-3/4 bg-gray-200 rounded mb-3"></div>

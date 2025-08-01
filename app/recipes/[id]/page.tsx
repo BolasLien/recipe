@@ -55,8 +55,10 @@ export default async function RecipeDetailPage({ params }: Props) {
             </Link>
             <DeleteRecipeButton recipeId={data.id} />
           </div>
-          <h1 className="text-4xl font-extrabold mb-4 tracking-tight">{data.title}</h1>
-          
+          <h1 className="text-4xl font-extrabold mb-4 tracking-tight">
+            {data.title}
+          </h1>
+
           <article className="markdown">
             <ReactMarkdown>{data.content || ''}</ReactMarkdown>
           </article>
