@@ -10,22 +10,22 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@supabase/supabase-js": "latest",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "@supabase/supabase-js": "latest",
     "react-hook-form": "latest",
     "react-markdown": "latest"
   },
   "devDependencies": {
-    "typescript": "latest",
+    "@tailwindcss/postcss": "latest",
+    "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
-    "tailwindcss": "latest",
     "postcss": "latest",
-    "autoprefixer": "latest",
-    "@tailwindcss/postcss": "latest",
-    "prettier": "latest"
+    "prettier": "latest",
+    "tailwindcss": "latest",
+    "typescript": "latest"
   },
   "packageManager": "pnpm@10.11.1+sha512.e519b9f7639869dc8d5c3c5dfef73b3f091094b0a006d7317353c72b124e80e1afd429732e28705ad6bfa1ee879c1fce46c128ccebd3192101f43dd67c667912"
 }
