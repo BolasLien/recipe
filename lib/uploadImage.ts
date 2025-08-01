@@ -37,11 +37,9 @@ export const uploadImage = async (
     xhr.send(formData);
   });
 
-  const { data: publicUrlData, error } = supabase.storage
+  const { data: publicUrlData } = supabase.storage
     .from(bucket)
     .getPublicUrl(path);
-
-  if (error) throw error;
 
   return publicUrlData.publicUrl;
 };

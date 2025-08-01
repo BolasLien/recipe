@@ -5,9 +5,9 @@ import Link from 'next/link';
 import DeleteRecipeButton from '../../../components/DeleteRecipeButton';
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export default async function RecipeDetailPage({ params }: Props) {

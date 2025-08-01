@@ -3,13 +3,23 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function SearchBox() {
+export default function ClientSearchBox() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [keyword, setKeyword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    if (searchParams) {
+      setKeyword(searchParams.get('q') || '');
+    }
+  }, [searchParams]);
 
   const navigateWithQuery = (kw: string) => {
+    if (!mounted) return;
+    
     const params = new URLSearchParams(searchParams?.toString() || '');
     if (kw) {
       params.set('q', kw);
@@ -19,14 +29,6 @@ export default function SearchBox() {
     setLoading(true);
     router.push(`/?${params.toString()}`);
   };
-
-  // Initialize keyword from searchParams after component mounts
-  useEffect(() => {
-    if (searchParams) {
-      setKeyword(searchParams.get('q') || '');
-    }
-    setLoading(false);
-  }, [searchParams]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,6 +40,17 @@ export default function SearchBox() {
     navigateWithQuery('');
   };
 
+  if (!mounted) {
+    return (
+      <div className="flex w-full sm:w-auto space-x-2">
+        <div className="relative flex-1">
+          <div className="border p-2 rounded w-full pr-8 bg-gray-50 animate-pulse h-10"></div>
+        </div>
+        <div className="bg-gray-300 animate-pulse py-2 px-4 rounded h-10 w-16"></div>
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit} className="flex w-full sm:w-auto space-x-2">
       <div className="relative flex-1">
@@ -46,14 +59,14 @@ export default function SearchBox() {
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           placeholder="搜尋食譜"
-          className="border p-2 rounded w-full pr-8"
+          className="border border-gray-300 p-3 rounded-full w-full pr-10 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300"
           disabled={loading}
         />
         {keyword && (
           <button
             type="button"
             onClick={handleClear}
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
             aria-label="清除搜尋"
           >
             ×
@@ -62,7 +75,7 @@ export default function SearchBox() {
       </div>
       <button
         type="submit"
-        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-60"
+        className="bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 px-6 rounded-full hover:from-orange-600 hover:to-orange-700 disabled:opacity-60 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
         disabled={loading}
       >
         {loading ? '搜尋中...' : '搜尋'}

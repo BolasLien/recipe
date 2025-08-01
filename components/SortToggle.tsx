@@ -9,7 +9,7 @@ export default function SortToggle({ sort }: { sort: Sort }) {
   const searchParams = useSearchParams();
 
   const handleChange = (newSort: Sort) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString() || '');
     params.set('sort', newSort);
     router.push(`/?${params.toString()}`);
   };
