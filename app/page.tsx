@@ -74,7 +74,7 @@ export default async function HomePage({
           <Link
             key={recipe.id}
             href={`/recipes/${recipe.id}`}
-            className="flex border rounded overflow-hidden hover:shadow transition"
+            className="flex bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
           >
             {recipe.image_url && (
               <img
