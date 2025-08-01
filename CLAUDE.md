@@ -55,7 +55,6 @@ pnpm format       # Format code with Prettier
 - React Hook Form for form handling
 - Link components for navigation with hover transitions
 
-
 ## 程式碼風格與命名規範
 
 ### 1. 變數和 function 命名
@@ -407,5 +406,3 @@ const getStatusColor = (status: Status): string => {
   }
 };
 ```
-
----
