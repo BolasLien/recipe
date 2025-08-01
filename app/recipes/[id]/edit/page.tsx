@@ -1,5 +1,5 @@
 import { supabase } from '../../../../lib/supabase';
-import EditRecipeForm from './EditRecipeForm';
+import RecipeForm from '../../../../components/RecipeForm';
 import { notFound } from 'next/navigation';
 
 type Props = {
@@ -22,5 +22,5 @@ export default async function EditRecipePage({ params }: Props) {
     notFound();
   }
 
-  return <EditRecipeForm recipe={data} />;
+  return <RecipeForm mode="edit" recipe={data} />;
 }
