@@ -6,11 +6,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 export default function SearchBox() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [keyword, setKeyword] = useState(searchParams.get('q') || '');
+  const [keyword, setKeyword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const navigateWithQuery = (kw: string) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString() || '');
     if (kw) {
       params.set('q', kw);
     } else {
@@ -20,8 +20,11 @@ export default function SearchBox() {
     router.push(`/?${params.toString()}`);
   };
 
+  // Initialize keyword from searchParams after component mounts
   useEffect(() => {
-    setKeyword(searchParams.get('q') || '');
+    if (searchParams) {
+      setKeyword(searchParams.get('q') || '');
+    }
     setLoading(false);
   }, [searchParams]);
 
