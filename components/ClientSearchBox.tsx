@@ -15,11 +15,12 @@ export default function ClientSearchBox() {
     if (searchParams) {
       setKeyword(searchParams.get('q') || '');
     }
+    setLoading(false);
   }, [searchParams]);
 
   const navigateWithQuery = (kw: string) => {
     if (!mounted) return;
-    
+
     const params = new URLSearchParams(searchParams?.toString() || '');
     if (kw) {
       params.set('q', kw);
@@ -59,7 +60,7 @@ export default function ClientSearchBox() {
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           placeholder="搜尋食譜"
-          className="border border-gray-300 p-3 rounded-full w-full pr-10 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300"
+          className="border-2 border-gray-200 px-5 py-2.5 rounded-lg w-full pr-10 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-300 text-sm font-medium leading-5 h-10"
           disabled={loading}
         />
         {keyword && (
@@ -75,7 +76,7 @@ export default function ClientSearchBox() {
       </div>
       <button
         type="submit"
-        className="bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 px-6 rounded-full hover:from-orange-600 hover:to-orange-700 disabled:opacity-60 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+        className="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-600 hover:to-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 disabled:opacity-60 transition-all duration-300 transform hover:scale-105 shadow-md leading-5 h-10"
         disabled={loading}
       >
         {loading ? '搜尋中...' : '搜尋'}

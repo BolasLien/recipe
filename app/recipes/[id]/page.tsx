@@ -32,10 +32,7 @@ export default async function RecipeDetailPage({ params }: Props) {
     day: 'numeric',
   });
 
-  const breadcrumbItems = [
-    { label: '首頁', href: '/' },
-    { label: '食譜詳情' }
-  ];
+  const breadcrumbItems = [{ label: '首頁', href: '/' }, { label: '食譜詳情' }];
 
   return (
     <div className="min-h-screen bg-gray-50">
