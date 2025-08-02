@@ -4,16 +4,9 @@ import Image from 'next/image';
 import ClientSortToggle from '../components/ClientSortToggle';
 import ClientSearchBox from '../components/ClientSearchBox';
 
-type Recipe = {
-  id: string;
-  title: string;
-  content: string | null;
-  image_url: string | null;
-};
-
-interface PageProps {
+type PageProps = {
   searchParams: Promise<{ sort?: string; q?: string }>;
-}
+};
 
 export default async function HomePage({ searchParams }: PageProps) {
   const params = await searchParams;
@@ -61,9 +54,15 @@ export default async function HomePage({ searchParams }: PageProps) {
     );
   }
 
+  // 安全地轉義正則表達式特殊字符
+  const escapeRegExp = (string: string) => {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  };
+
   const highlight = (text: string) => {
     if (!keyword) return text;
-    const parts = text.split(new RegExp(`(${keyword})`, 'gi'));
+    const escapedKeyword = escapeRegExp(keyword);
+    const parts = text.split(new RegExp(`(${escapedKeyword})`, 'gi'));
     return parts.map((part, i) =>
       part.toLowerCase() === keyword.toLowerCase() ? (
         <mark
