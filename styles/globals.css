@@ -1,28 +1,98 @@
 @import 'tailwindcss';
 
-/* basic markdown styling without typography plugin */
+/* Enhanced markdown styling with orange theme */
 .markdown h1 {
-  @apply text-2xl font-bold mb-4;
+  @apply text-3xl font-bold mb-6 text-gray-900 border-b-2 border-orange-200 pb-2;
 }
 
 .markdown h2 {
-  @apply text-xl font-semibold mt-4 mb-2;
+  @apply text-2xl font-semibold mt-8 mb-4 text-gray-800 relative;
+}
+
+.markdown h2::before {
+  content: '';
+  @apply absolute -left-4 top-1/2 transform -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-orange-400 to-orange-500 rounded-full;
+}
+
+.markdown h3 {
+  @apply text-xl font-semibold mt-6 mb-3 text-gray-800;
+}
+
+.markdown h4 {
+  @apply text-lg font-medium mt-4 mb-2 text-gray-800;
 }
 
 .markdown p {
-  @apply mb-4;
+  @apply mb-4 text-gray-700 leading-relaxed;
 }
 
 .markdown ul {
-  @apply list-disc pl-6 mb-4;
+  @apply list-none pl-6 mb-4 space-y-2;
+}
+
+.markdown ul li {
+  @apply relative;
+}
+
+.markdown ul li::before {
+  content: '';
+  @apply absolute -left-4 top-2 w-2 h-2 bg-orange-400 rounded-full;
 }
 
 .markdown ol {
-  @apply list-decimal pl-6 mb-4;
+  @apply list-decimal pl-6 mb-4 space-y-2;
+}
+
+.markdown ol li {
+  @apply text-gray-700 leading-relaxed;
 }
 
 .markdown a {
-  @apply text-blue-600 underline;
+  @apply text-orange-600 hover:text-orange-700 underline decoration-orange-300 hover:decoration-orange-500 transition-colors;
+}
+
+.markdown blockquote {
+  @apply border-l-4 border-orange-300 bg-orange-50 pl-4 py-2 mb-4 italic text-gray-700;
+}
+
+.markdown code {
+  @apply bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800;
+}
+
+.markdown pre {
+  @apply bg-gray-900 text-gray-100 p-4 rounded-lg mb-4 overflow-x-auto;
+}
+
+.markdown pre code {
+  @apply bg-transparent px-0 py-0;
+}
+
+.markdown table {
+  @apply w-full border-collapse mb-4 shadow-sm rounded-lg overflow-hidden;
+}
+
+.markdown th {
+  @apply bg-gradient-to-r from-orange-400 to-orange-500 text-white px-4 py-3 text-left font-semibold;
+}
+
+.markdown td {
+  @apply border-b border-gray-200 px-4 py-3 text-gray-700;
+}
+
+.markdown tr:nth-child(even) {
+  @apply bg-gray-50;
+}
+
+.markdown hr {
+  @apply border-0 h-px bg-gradient-to-r from-transparent via-orange-300 to-transparent my-8;
+}
+
+.markdown strong {
+  @apply font-semibold text-gray-900;
+}
+
+.markdown em {
+  @apply italic text-gray-700;
 }
 
 /* Line clamp utilities */
