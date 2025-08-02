@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import { supabase } from '../lib/supabase';
 import ImageUploader from './ImageUploader';
@@ -165,10 +166,20 @@ export default function RecipeForm({ mode, recipe }: Props) {
           {imageUrl && (
             <div className="mt-4">
               <div className="relative max-w-md">
-                <img
+                <Image
                   src={imageUrl}
                   alt="Uploaded"
+                  width={448}
+                  height={300}
                   className="w-full h-auto rounded-lg shadow-md border-2 border-gray-200"
+                  sizes="(max-width: 448px) 100vw, 448px"
+                  placeholder="blur"
+                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNmZWYzZjI7c3RvcC1vcGFjaXR5OjEiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZmJlZDhiO3N0b3Atb3BhY2l0eToxIiAvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2cpIiAvPjwvc3ZnPg=="
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    target.style.display = 'none';
+                    showToast('圖片載入失敗', 'error');
+                  }}
                 />
                 <div className="absolute top-2 right-2">
                   <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full shadow-sm">
