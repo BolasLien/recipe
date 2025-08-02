@@ -94,21 +94,21 @@ export default function RecipeForm({ mode, recipe }: Props) {
   const submitText = isCreate ? '✨ 創建食譜' : '💾 更新食譜';
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 lg:p-8">
+    <div className="bg-white rounded-xl shadow-sm p-6 lg:p-8">
       <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
         {/* 標題輸入 */}
         <div>
-          <label className="block text-gray-700 font-semibold mb-3">
+          <label className="form-label">
             食譜標題 <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
             placeholder="輸入食譜的標題..."
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-colors"
+            className="form-input"
             {...register('title', { required: '請輸入食譜標題' })}
           />
           {errors.title && (
-            <p className="text-red-500 text-sm mt-2 flex items-center">
+            <p className="form-error">
               <span className="mr-1">⚠️</span>
               {errors.title.message}
             </p>
@@ -117,7 +117,7 @@ export default function RecipeForm({ mode, recipe }: Props) {
 
         {/* Markdown 輸入框 */}
         <div>
-          <label className="block text-gray-700 font-semibold mb-3">
+          <label className="form-label">
             食譜內容 <span className="text-red-500">*</span>
           </label>
           <p className="text-gray-500 text-sm mb-3">
@@ -126,11 +126,11 @@ export default function RecipeForm({ mode, recipe }: Props) {
           <textarea
             rows={12}
             placeholder="請輸入食譜的詳細內容，包含食材、步驟等..."
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-colors resize-y"
+            className="form-textarea"
             {...register('content', { required: '請輸入食譜內容' })}
           />
           {errors.content && (
-            <p className="text-red-500 text-sm mt-2 flex items-center">
+            <p className="form-error">
               <span className="mr-1">⚠️</span>
               {errors.content.message}
             </p>
@@ -139,9 +139,7 @@ export default function RecipeForm({ mode, recipe }: Props) {
 
         {/* Markdown 預覽 */}
         <div>
-          <label className="block text-gray-700 font-semibold mb-3">
-            內容預覽
-          </label>
+          <label className="form-label">內容預覽</label>
           <div className="bg-white border-2 border-gray-200 rounded-lg p-6 min-h-[200px]">
             <div className="markdown">
               <ReactMarkdown>
@@ -153,9 +151,7 @@ export default function RecipeForm({ mode, recipe }: Props) {
 
         {/* 圖片上傳 */}
         <div>
-          <label className="block text-gray-700 font-semibold mb-3">
-            封面照片
-          </label>
+          <label className="form-label">封面照片</label>
           <p className="text-gray-500 text-sm mb-3">
             上傳一張吸引人的食譜照片作為封面
           </p>
@@ -196,10 +192,10 @@ export default function RecipeForm({ mode, recipe }: Props) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`flex items-center justify-center gap-2 font-medium rounded-lg text-sm px-6 py-3 focus:ring-4 focus:outline-none transition-all duration-300 transform hover:scale-105 shadow-md w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none ${
+            className={`flex items-center justify-center gap-2 font-medium rounded-lg text-sm px-6 py-3 focus:ring-2 focus:outline-none transition-colors shadow-sm w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed ${
               isCreate
-                ? 'bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 focus:ring-green-300'
-                : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 focus:ring-blue-300'
+                ? 'bg-green-500 text-white hover:bg-green-600 focus:ring-green-300'
+                : 'bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-300'
             }`}
           >
             {isSubmitting ? (
@@ -218,7 +214,7 @@ export default function RecipeForm({ mode, recipe }: Props) {
                 ? router.push('/')
                 : router.push(`/recipes/${recipe!.id}`)
             }
-            className="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-400 to-orange-500 text-white font-medium rounded-lg text-sm px-6 py-3 hover:from-orange-500 hover:to-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-300 transform hover:scale-105 shadow-md w-full sm:w-auto"
+            className="flex items-center justify-center gap-2 bg-amber-500 text-white font-medium rounded-lg text-sm px-6 py-3 hover:bg-amber-600 focus:ring-2 focus:outline-none focus:ring-amber-300 transition-colors shadow-sm w-full sm:w-auto"
           >
             <span>↩️</span>
             取消

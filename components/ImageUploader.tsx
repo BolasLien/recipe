@@ -52,14 +52,14 @@ export default function ImageUploader({
       />
 
       {/* 上傳按鈕區域 */}
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-orange-400 transition-colors">
+      <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-amber-400 transition-colors">
         <div className="space-y-3">
           <div className="text-4xl">📷</div>
           <div>
             <button
               type="button"
               onClick={handleChoose}
-              className="bg-gradient-to-r from-orange-400 to-orange-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-500 hover:to-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-300 transform hover:scale-105 shadow-md"
+              className="bg-amber-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:bg-amber-600 focus:ring-2 focus:outline-none focus:ring-amber-300 transition-colors shadow-sm"
             >
               📎 選擇圖片
             </button>
@@ -77,7 +77,7 @@ export default function ImageUploader({
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-gradient-to-r from-orange-400 to-orange-500 h-2 rounded-full transition-all duration-300"
+              className="bg-amber-500 h-2 rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
