@@ -11,7 +11,7 @@
 - 為每個邏輯單位建立具描述性的 commit message
 - 將分支推送至遠端
 - 建立包含摘要與測試計畫的 Pull Request
-- 只需要描述這次的 PR 內容，不需要其他的描述
+- 生成 commit message，不要添加 Co-Authored-By 或任何額外的作者標籤，只需要標準的 commit 格式
 - 將分支合併到 $ARGUMENT
 
 ## 自動切分 Commit 的準則
