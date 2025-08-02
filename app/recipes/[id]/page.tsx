@@ -38,15 +38,13 @@ export default async function RecipeDetailPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-orange-400 via-orange-500 to-red-500 text-white">
-        <div className="max-w-6xl mx-auto px-4 py-8 sm:px-8">
+      <div className="bg-amber-500 text-white">
+        <div className="max-w-6xl mx-auto px-4 py-12 sm:px-8">
           <Breadcrumb items={breadcrumbItems} />
-          <h1 className="text-3xl md:text-4xl font-bold mt-4 drop-shadow-md">
-            {data.title}
-          </h1>
-          <div className="flex items-center gap-4 mt-3 text-white/90">
-            <div className="flex items-center gap-1">
-              <span className="text-sm">📅</span>
+          <h1 className="text-3xl md:text-4xl font-bold mt-6">{data.title}</h1>
+          <div className="flex items-center gap-4 mt-4 text-amber-100">
+            <div className="flex items-center gap-2">
+              <span>📅</span>
               <span className="text-sm">{formattedDate}</span>
             </div>
           </div>
@@ -54,12 +52,12 @@ export default async function RecipeDetailPage({ params }: Props) {
       </div>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto p-4 sm:p-8">
+      <main className="max-w-6xl mx-auto p-4 sm:p-8 lg:p-12">
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-8">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
           <Link
             href="/"
-            className="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-400 to-orange-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-500 hover:to-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-300 transform hover:scale-105 shadow-md w-full sm:w-auto"
+            className="flex items-center justify-center gap-2 bg-amber-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:bg-amber-600 focus:ring-2 focus:outline-none focus:ring-amber-300 transition-colors shadow-sm w-full sm:w-auto"
           >
             <span>←</span>
             返回
@@ -67,7 +65,7 @@ export default async function RecipeDetailPage({ params }: Props) {
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
             <Link
               href={`/recipes/${data.id}/edit`}
-              className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-blue-600 hover:to-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-all duration-300 transform hover:scale-105 shadow-md w-full sm:w-auto"
+              className="flex items-center justify-center gap-2 bg-blue-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:bg-blue-600 focus:ring-2 focus:outline-none focus:ring-blue-300 transition-colors shadow-sm w-full sm:w-auto"
             >
               <span>✏️</span>
               編輯
@@ -78,12 +76,12 @@ export default async function RecipeDetailPage({ params }: Props) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
           {/* Left Column: Image */}
           <div className="w-full lg:sticky lg:top-8 self-start">
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div className="bg-white rounded-xl shadow-sm overflow-hidden">
               {data.image_url ? (
-                <div className="relative w-full min-h-[300px] max-h-[70vh] bg-gradient-to-br from-orange-50 to-yellow-50 flex items-center justify-center">
+                <div className="relative w-full min-h-[300px] max-h-[70vh] bg-gradient-to-br from-amber-50 to-yellow-50 flex items-center justify-center">
                   <Image
                     src={data.image_url}
                     alt={data.title}
@@ -97,7 +95,7 @@ export default async function RecipeDetailPage({ params }: Props) {
                   />
                 </div>
               ) : (
-                <div className="w-full aspect-square bg-gradient-to-br from-orange-100 to-yellow-100 flex items-center justify-center">
+                <div className="w-full aspect-square bg-gradient-to-br from-amber-100 to-yellow-100 flex items-center justify-center">
                   <div className="text-center text-gray-500">
                     <div className="text-4xl mb-2">🍳</div>
                     <p>暫無圖片</p>
@@ -109,7 +107,7 @@ export default async function RecipeDetailPage({ params }: Props) {
 
           {/* Right Column: Content */}
           <div>
-            <div className="bg-white rounded-xl shadow-lg p-6 lg:p-8">
+            <div className="bg-white rounded-xl shadow-sm p-6 lg:p-8">
               <article className="markdown prose-orange">
                 <ReactMarkdown>{data.content || ''}</ReactMarkdown>
               </article>
