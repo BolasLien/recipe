@@ -95,7 +95,11 @@ export default async function HomePage({ searchParams }: PageProps) {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8" role="main" aria-label="食譜列表">
+      <main
+        className="container mx-auto px-4 py-8"
+        role="main"
+        aria-label="食譜列表"
+      >
         {/* Controls */}
         <div className="mb-8 space-y-4">
           {/* 搜尋列 */}
@@ -127,7 +131,7 @@ export default async function HomePage({ searchParams }: PageProps) {
               </Link>
             </div>
           </div>
-          
+
           {/* 結果資訊列 */}
           {data && data.length > 0 && (
             <div className="flex items-center justify-between text-sm text-gray-600">
@@ -192,7 +196,10 @@ export default async function HomePage({ searchParams }: PageProps) {
             </Link>
           </div>
         ) : (
-          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" aria-label="食譜卡片列表">
+          <section
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            aria-label="食譜卡片列表"
+          >
             {data?.map((recipe) => (
               <Link
                 key={recipe.id}
