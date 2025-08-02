@@ -17,11 +17,30 @@ export default function ImageUploader({
     inputRef.current?.click();
   };
 
+  // 安全地清理文件名
+  const sanitizeFileName = (fileName: string) => {
+    // 移除路徑遍歷字符和特殊字符
+    const sanitized = fileName
+      .replace(/[^a-zA-Z0-9.-]/g, '_') // 只保留字母、數字、點和連字符
+      .replace(/\.+/g, '.') // 合併多個點
+      .replace(/^\./, '') // 移除開頭的點
+      .substring(0, 100); // 限制長度
+
+    // 確保有副檔名
+    const ext = fileName.split('.').pop()?.toLowerCase();
+    const name = sanitized.split('.')[0] || 'image';
+
+    // 添加時間戳以避免衝突
+    const timestamp = Date.now();
+    return `${name}_${timestamp}.${ext}`;
+  };
+
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const path = `images/${file.name}`;
+    const safeName = sanitizeFileName(file.name);
+    const path = `images/${safeName}`;
 
     try {
       const url = await uploadImage(file, path, (percent) => {
