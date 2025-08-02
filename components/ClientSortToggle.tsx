@@ -24,34 +24,38 @@ export default function ClientSortToggle({ sort }: { sort: Sort }) {
 
   if (!mounted) {
     return (
-      <div className="flex space-x-2">
-        <div className="py-2 px-4 rounded-full border bg-gray-200 animate-pulse w-16 h-10"></div>
-        <div className="py-2 px-4 rounded-full border bg-gray-200 animate-pulse w-16 h-10"></div>
+      <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+        <div className="bg-gray-200 animate-pulse rounded-md w-20 h-11"></div>
+        <div className="bg-gray-200 animate-pulse rounded-md w-20 h-11"></div>
       </div>
     );
   }
 
   return (
-    <div className="flex space-x-2">
+    <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
       <button
         onClick={() => handleChange('desc')}
-        className={`font-medium rounded-lg text-sm px-5 py-2.5 border-2 transition-all duration-300 transform hover:scale-105 focus:ring-4 focus:outline-none shadow-md leading-5 h-10 ${
+        className={`font-medium rounded-md text-sm px-4 py-2 transition-all duration-200 focus:ring-2 focus:outline-none leading-5 h-11 ${
           sort === 'desc'
-            ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white border-orange-500 focus:ring-orange-300'
-            : 'bg-white text-gray-700 border-gray-200 hover:bg-orange-50 hover:border-orange-300 focus:ring-orange-100'
+            ? 'bg-white text-gray-900 shadow-sm border border-gray-200 focus:ring-orange-300'
+            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 focus:ring-gray-300'
         }`}
+        aria-pressed={sort === 'desc'}
+        aria-label="按最新時間排序"
       >
-        最新
+        最近新增
       </button>
       <button
         onClick={() => handleChange('asc')}
-        className={`font-medium rounded-lg text-sm px-5 py-2.5 border-2 transition-all duration-300 transform hover:scale-105 focus:ring-4 focus:outline-none shadow-md leading-5 h-10 ${
+        className={`font-medium rounded-md text-sm px-4 py-2 transition-all duration-200 focus:ring-2 focus:outline-none leading-5 h-11 ${
           sort === 'asc'
-            ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white border-orange-500 focus:ring-orange-300'
-            : 'bg-white text-gray-700 border-gray-200 hover:bg-orange-50 hover:border-orange-300 focus:ring-orange-100'
+            ? 'bg-white text-gray-900 shadow-sm border border-gray-200 focus:ring-orange-300'
+            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 focus:ring-gray-300'
         }`}
+        aria-pressed={sort === 'asc'}
+        aria-label="按較早時間排序"
       >
-        最舊
+        較早新增
       </button>
     </div>
   );

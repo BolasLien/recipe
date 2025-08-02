@@ -81,7 +81,7 @@ export default async function HomePage({ searchParams }: PageProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-400 via-orange-500 to-yellow-400">
+      <header className="bg-gradient-to-r from-orange-400 via-orange-500 to-yellow-400">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
@@ -92,41 +92,55 @@ export default async function HomePage({ searchParams }: PageProps) {
             </p>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8" role="main" aria-label="食譜列表">
         {/* Controls */}
-        <div className="mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <ClientSearchBox />
-            <ClientSortToggle sort={sort} />
-          </div>
-          <div className="flex items-center gap-4">
-            {data && data.length > 0 && (
-              <span className="text-gray-600 text-sm">
-                共 {data.length} 個食譜
-              </span>
-            )}
-            <Link
-              href="/recipes/new"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-600 hover:to-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-300 transform hover:scale-105 shadow-md"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+        <div className="mb-8 space-y-4">
+          {/* 搜尋列 */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="flex-1">
+              <ClientSearchBox />
+            </div>
+            <div className="flex items-center">
+              <Link
+                href="/recipes/new"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-600 hover:to-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-200 shadow-sm hover:shadow-md h-11 whitespace-nowrap"
+                aria-label="創建新的食譜"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
-              新增食譜
-            </Link>
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+                <span className="hidden sm:inline">新增食譜</span>
+                <span className="sm:hidden">新增</span>
+              </Link>
+            </div>
+          </div>
+          
+          {/* 結果資訊列 */}
+          {data && data.length > 0 && (
+            <div className="flex items-center justify-between text-sm text-gray-600">
+              <span>共 {data.length} 個食譜</span>
+              <span className="text-xs">
+                {sort === 'desc' ? '按最新時間排序' : '按較早時間排序'}
+              </span>
+            </div>
+          )}
+
+          {/* 排序按鈕 - 置中對齊 */}
+          <div className="flex justify-center">
+            <ClientSortToggle sort={sort} />
           </div>
         </div>
 
@@ -158,7 +172,8 @@ export default async function HomePage({ searchParams }: PageProps) {
             </p>
             <Link
               href="/recipes/new"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-600 hover:to-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-300 transform hover:scale-105 shadow-md"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-600 hover:to-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-200 shadow-sm hover:shadow-md h-11"
+              aria-label={keyword ? '新增食譜' : '創建第一個食譜'}
             >
               <svg
                 className="w-5 h-5"
@@ -177,7 +192,7 @@ export default async function HomePage({ searchParams }: PageProps) {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" aria-label="食譜卡片列表">
             {data?.map((recipe) => (
               <Link
                 key={recipe.id}
@@ -243,9 +258,9 @@ export default async function HomePage({ searchParams }: PageProps) {
                 </div>
               </Link>
             ))}
-          </div>
+          </section>
         )}
-      </div>
+      </main>
     </div>
   );
 }
