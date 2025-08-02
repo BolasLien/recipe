@@ -1,5 +1,5 @@
 import { supabase } from '../../../lib/supabase';
-import ReactMarkdown from 'react-markdown';
+import DynamicMarkdown from '../../../components/DynamicMarkdown';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -109,7 +109,9 @@ export default async function RecipeDetailPage({ params }: Props) {
           <div>
             <div className="bg-white rounded-xl shadow-sm p-6 lg:p-8">
               <article className="markdown prose-orange">
-                <ReactMarkdown>{data.content || ''}</ReactMarkdown>
+                <DynamicMarkdown className="prose-orange">
+                  {data.content || ''}
+                </DynamicMarkdown>
               </article>
             </div>
           </div>
