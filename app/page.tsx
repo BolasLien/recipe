@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase';
 import Link from 'next/link';
+import Image from 'next/image';
 import ClientSortToggle from '../components/ClientSortToggle';
 import ClientSearchBox from '../components/ClientSearchBox';
 
@@ -80,7 +81,7 @@ export default async function HomePage({ searchParams }: PageProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-400 via-orange-500 to-yellow-400">
+      <header className="bg-gradient-to-r from-orange-400 via-orange-500 to-yellow-400">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
@@ -91,41 +92,59 @@ export default async function HomePage({ searchParams }: PageProps) {
             </p>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
+      <main
+        className="container mx-auto px-4 py-8"
+        role="main"
+        aria-label="食譜列表"
+      >
         {/* Controls */}
-        <div className="mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <ClientSearchBox />
-            <ClientSortToggle sort={sort} />
-          </div>
-          <div className="flex items-center gap-4">
-            {data && data.length > 0 && (
-              <span className="text-gray-600 text-sm">
-                共 {data.length} 個食譜
-              </span>
-            )}
-            <Link
-              href="/recipes/new"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-600 hover:to-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-300 transform hover:scale-105 shadow-md"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+        <div className="mb-8 space-y-4">
+          {/* 搜尋列 */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="flex-1">
+              <ClientSearchBox />
+            </div>
+            <div className="flex items-center">
+              <Link
+                href="/recipes/new"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-600 hover:to-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-200 shadow-sm hover:shadow-md h-11 whitespace-nowrap"
+                aria-label="創建新的食譜"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
-              新增食譜
-            </Link>
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+                <span className="hidden sm:inline">新增食譜</span>
+                <span className="sm:hidden">新增</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* 結果資訊列 */}
+          {data && data.length > 0 && (
+            <div className="flex items-center justify-between text-sm text-gray-600">
+              <span>共 {data.length} 個食譜</span>
+              <span className="text-xs">
+                {sort === 'desc' ? '按最新時間排序' : '按較早時間排序'}
+              </span>
+            </div>
+          )}
+
+          {/* 排序按鈕 - 置中對齊 */}
+          <div className="flex justify-center">
+            <ClientSortToggle sort={sort} />
           </div>
         </div>
 
@@ -157,7 +176,8 @@ export default async function HomePage({ searchParams }: PageProps) {
             </p>
             <Link
               href="/recipes/new"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-600 hover:to-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-300 transform hover:scale-105 shadow-md"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-600 hover:to-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-200 shadow-sm hover:shadow-md h-11"
+              aria-label={keyword ? '新增食譜' : '創建第一個食譜'}
             >
               <svg
                 className="w-5 h-5"
@@ -176,7 +196,10 @@ export default async function HomePage({ searchParams }: PageProps) {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <section
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            aria-label="食譜卡片列表"
+          >
             {data?.map((recipe) => (
               <Link
                 key={recipe.id}
@@ -186,26 +209,21 @@ export default async function HomePage({ searchParams }: PageProps) {
                 {/* Image Container */}
                 <div className="relative aspect-[4/3] overflow-hidden">
                   {recipe.image_url ? (
-                    <img
+                    <Image
                       src={recipe.image_url}
                       alt={recipe.title}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      placeholder="blur"
+                      blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNmZWYzZjI7c3RvcC1vcGFjaXR5OjEiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZmJlZDhiO3N0b3Atb3BhY2l0eToxIiAvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2cpIiAvPjwvc3ZnPg=="
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-orange-100 to-yellow-100 flex items-center justify-center">
-                      <svg
-                        className="w-16 h-16 text-orange-300"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
+                      <div className="text-center text-gray-500">
+                        <div className="text-4xl mb-2">🍳</div>
+                        <p className="text-sm">暫無圖片</p>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -247,9 +265,9 @@ export default async function HomePage({ searchParams }: PageProps) {
                 </div>
               </Link>
             ))}
-          </div>
+          </section>
         )}
-      </div>
+      </main>
     </div>
   );
 }

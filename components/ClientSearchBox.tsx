@@ -22,13 +22,18 @@ export default function ClientSearchBox() {
     if (!mounted) return;
 
     const params = new URLSearchParams(searchParams?.toString() || '');
-    if (kw) {
-      params.set('q', kw);
+    if (kw.trim()) {
+      params.set('q', kw.trim());
     } else {
       params.delete('q');
     }
     setLoading(true);
     router.push(`/?${params.toString()}`);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setKeyword(value);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,45 +46,119 @@ export default function ClientSearchBox() {
     navigateWithQuery('');
   };
 
+  // 鍵盤快捷鍵支援 (Ctrl+K)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        const searchInput = document.querySelector(
+          'input[role="searchbox"]'
+        ) as HTMLInputElement;
+        if (searchInput) {
+          searchInput.focus();
+          searchInput.select();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   if (!mounted) {
     return (
-      <div className="flex w-full sm:w-auto space-x-2">
+      <div className="flex w-full gap-2">
         <div className="relative flex-1">
-          <div className="border p-2 rounded w-full pr-8 bg-gray-50 animate-pulse h-10"></div>
+          <div className="border-2 border-gray-200 px-5 py-2.5 rounded-lg w-full pr-10 bg-gray-50 animate-pulse h-11"></div>
         </div>
-        <div className="bg-gray-300 animate-pulse py-2 px-4 rounded h-10 w-16"></div>
+        <div className="bg-gray-300 animate-pulse rounded-lg h-11 w-20"></div>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex w-full sm:w-auto space-x-2">
+    <form onSubmit={handleSubmit} className="flex w-full gap-2">
       <div className="relative flex-1">
         <input
           type="text"
           value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
-          placeholder="搜尋食譜"
-          className="border-2 border-gray-200 px-5 py-2.5 rounded-lg w-full pr-10 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-300 text-sm font-medium leading-5 h-10"
+          onChange={handleInputChange}
+          placeholder="搜尋食譜..."
+          className="border-2 border-gray-200 pl-10 pr-12 py-2.5 rounded-lg w-full focus:border-orange-400 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200 text-sm font-medium leading-5 h-11"
           disabled={loading}
+          aria-label="搜尋食譜關鍵字"
+          role="searchbox"
         />
+
+        {/* 搜尋圖示 */}
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </div>
+
+        {/* 清除按鈕 */}
         {keyword && (
           <button
             type="button"
             onClick={handleClear}
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
             aria-label="清除搜尋"
           >
-            ×
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </button>
         )}
       </div>
+
+      {/* 搜尋按鈕 */}
       <button
         type="submit"
-        className="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-600 hover:to-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 disabled:opacity-60 transition-all duration-300 transform hover:scale-105 shadow-md leading-5 h-10"
+        className="inline-flex items-center gap-2 bg-orange-500 text-white font-medium rounded-lg text-sm px-4 py-2.5 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-200 shadow-sm hover:shadow-md h-11 whitespace-nowrap"
         disabled={loading}
+        aria-label="執行搜尋"
       >
-        {loading ? '搜尋中...' : '搜尋'}
+        {loading ? (
+          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+        ) : (
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        )}
+        <span className="hidden sm:inline">
+          {loading ? '搜尋中...' : '搜尋'}
+        </span>
       </button>
     </form>
   );

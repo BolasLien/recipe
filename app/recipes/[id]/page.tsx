@@ -2,6 +2,7 @@ import { supabase } from '../../../lib/supabase';
 import ReactMarkdown from 'react-markdown';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import DeleteRecipeButton from '../../../components/DeleteRecipeButton';
 import Breadcrumb from '../../../components/Breadcrumb';
 // 暫時使用 emoji 替代圖標，避免模組載入問題
@@ -82,13 +83,21 @@ export default async function RecipeDetailPage({ params }: Props) {
           <div className="w-full lg:sticky lg:top-8 self-start">
             <div className="bg-white rounded-xl shadow-lg overflow-hidden">
               {data.image_url ? (
-                <img
-                  src={data.image_url}
-                  alt={data.title}
-                  className="w-full h-auto object-cover lg:max-h-[70vh]"
-                />
+                <div className="relative w-full min-h-[300px] max-h-[70vh] bg-gradient-to-br from-orange-50 to-yellow-50 flex items-center justify-center">
+                  <Image
+                    src={data.image_url}
+                    alt={data.title}
+                    width={800}
+                    height={600}
+                    className="max-w-full max-h-full object-contain"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    placeholder="blur"
+                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNmZWYzZjI7c3RvcC1vcGFjaXR5OjEiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZmJlZDhiO3N0b3Atb3BhY2l0eToxIiAvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2cpIiAvPjwvc3ZnPg=="
+                    priority
+                  />
+                </div>
               ) : (
-                <div className="w-full h-64 bg-gray-100 flex items-center justify-center">
+                <div className="w-full aspect-square bg-gradient-to-br from-orange-100 to-yellow-100 flex items-center justify-center">
                   <div className="text-center text-gray-500">
                     <div className="text-4xl mb-2">🍳</div>
                     <p>暫無圖片</p>

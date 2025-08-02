@@ -7,7 +7,7 @@ export default function Loading() {
           <div className="relative w-20 h-20 mx-auto">
             {/* Pulsing Background */}
             <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-2xl animate-pulse opacity-20"></div>
-            
+
             {/* Main Logo Container */}
             <div className="relative w-full h-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl shadow-lg flex items-center justify-center">
               {/* Chef Hat Icon */}
@@ -36,8 +36,14 @@ export default function Loading() {
           <h2 className="text-2xl font-bold text-gray-800">美味食譜</h2>
           <div className="flex items-center justify-center space-x-2">
             <div className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-bounce"></div>
-            <div className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-            <div className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+            <div
+              className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-bounce"
+              style={{ animationDelay: '0.1s' }}
+            ></div>
+            <div
+              className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-bounce"
+              style={{ animationDelay: '0.2s' }}
+            ></div>
           </div>
         </div>
       </div>
