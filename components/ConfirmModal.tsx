@@ -2,7 +2,7 @@
 
 // 使用原生符號替代圖標
 
-interface ConfirmModalProps {
+type ConfirmModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
@@ -11,7 +11,7 @@ interface ConfirmModalProps {
   confirmText?: string;
   cancelText?: string;
   isLoading?: boolean;
-}
+};
 
 export default function ConfirmModal({
   isOpen,

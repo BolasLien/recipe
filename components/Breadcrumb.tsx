@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
-interface BreadcrumbItem {
+type BreadcrumbItem = {
   label: string;
   href?: string;
-}
+};
 
-interface BreadcrumbProps {
+type BreadcrumbProps = {
   items: BreadcrumbItem[];
-}
+};
 
 export default function Breadcrumb({ items }: BreadcrumbProps) {
   return (
