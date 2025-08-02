@@ -131,7 +131,6 @@ export default async function HomePage({ searchParams }: PageProps) {
               </Link>
             </div>
           </div>
-
           {/* 結果資訊列 */}
           {data && data.length > 0 && (
             <div className="flex items-center justify-between text-sm text-gray-600">
