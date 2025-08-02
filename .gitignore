@@ -41,3 +41,6 @@ dist/
 build/
 
 .env
+
+# Development artifacts
+.claude/agents
