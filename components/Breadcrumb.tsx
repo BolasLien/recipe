@@ -21,9 +21,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
           ) : (
             <span className="font-medium text-white">{item.label}</span>
           )}
-          {index < items.length - 1 && (
-            <span className="mx-1">›</span>
-          )}
+          {index < items.length - 1 && <span className="mx-1">›</span>}
         </div>
       ))}
     </nav>

@@ -45,7 +45,7 @@ export default function RecipeForm({ mode, recipe }: Props) {
 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
-    
+
     try {
       if (mode === 'create') {
         const { error } = await supabase.from('recipes').insert({
@@ -143,7 +143,9 @@ export default function RecipeForm({ mode, recipe }: Props) {
           </label>
           <div className="bg-white border-2 border-gray-200 rounded-lg p-6 min-h-[200px]">
             <div className="markdown">
-              <ReactMarkdown>{watch('content') || '預覽區域：請在上方輸入內容'}</ReactMarkdown>
+              <ReactMarkdown>
+                {watch('content') || '預覽區域：請在上方輸入內容'}
+              </ReactMarkdown>
             </div>
           </div>
         </div>
@@ -156,17 +158,17 @@ export default function RecipeForm({ mode, recipe }: Props) {
           <p className="text-gray-500 text-sm mb-3">
             上傳一張吸引人的食譜照片作為封面
           </p>
-          <ImageUploader 
-            onUploaded={(url) => setImageUrl(url)} 
+          <ImageUploader
+            onUploaded={(url) => setImageUrl(url)}
             onError={(message) => showToast(message, 'error')}
           />
           {imageUrl && (
             <div className="mt-4">
               <div className="relative max-w-md">
-                <img 
-                  src={imageUrl} 
-                  alt="Uploaded" 
-                  className="w-full h-auto rounded-lg shadow-md border-2 border-gray-200" 
+                <img
+                  src={imageUrl}
+                  alt="Uploaded"
+                  className="w-full h-auto rounded-lg shadow-md border-2 border-gray-200"
                 />
                 <div className="absolute top-2 right-2">
                   <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full shadow-sm">
@@ -180,12 +182,12 @@ export default function RecipeForm({ mode, recipe }: Props) {
 
         {/* 動作按鈕 */}
         <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t-2 border-gray-100">
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={isSubmitting}
             className={`flex items-center justify-center gap-2 font-medium rounded-lg text-sm px-6 py-3 focus:ring-4 focus:outline-none transition-all duration-300 transform hover:scale-105 shadow-md w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none ${
-              isCreate 
-                ? 'bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 focus:ring-green-300'  
+              isCreate
+                ? 'bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 focus:ring-green-300'
                 : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 focus:ring-blue-300'
             }`}
           >
@@ -212,7 +214,7 @@ export default function RecipeForm({ mode, recipe }: Props) {
           </button>
         </div>
       </form>
-      
+
       {/* Toast 通知 */}
       <ToastComponent />
     </div>

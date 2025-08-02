@@ -86,7 +86,7 @@ const DEFAULT_PAGE_SIZE = 20;
 const HTTP_STATUS = {
   OK: 200,
   NOT_FOUND: 404,
-  INTERNAL_ERROR: 500
+  INTERNAL_ERROR: 500,
 } as const;
 
 // 使用情境：
@@ -103,9 +103,15 @@ const ALLOWED_FILE_TYPES = ['jpg', 'png', 'pdf'] as const;
 
 ```typescript
 // ✅ PascalCase
-type UserProfile = { /* ... */ };
-const UserCard = ({ user }: { user: User }) => { /* ... */ };
-const ProfileSettings = () => { /* ... */ };
+type UserProfile = {
+  /* ... */
+};
+const UserCard = ({ user }: { user: User }) => {
+  /* ... */
+};
+const ProfileSettings = () => {
+  /* ... */
+};
 ```
 
 ### 4. Function 定義
@@ -173,8 +179,11 @@ const processUser = (user: User | null) => {
 
 // ✅ 推薦：使用現代陣列方法
 const activeUsers = users
-  .filter(user => user.isActive)
-  .map(user => ({ ...user, displayName: `${user.firstName} ${user.lastName}` }))
+  .filter((user) => user.isActive)
+  .map((user) => ({
+    ...user,
+    displayName: `${user.firstName} ${user.lastName}`,
+  }))
   .sort((a, b) => a.displayName.localeCompare(b.displayName));
 ```
 
@@ -357,7 +366,7 @@ const Button = (props: ButtonProps) => {
 const useToggle = (initialValue = false) => {
   const [value, setValue] = useState(initialValue);
 
-  const toggle = useCallback(() => setValue(prev => !prev), []);
+  const toggle = useCallback(() => setValue((prev) => !prev), []);
   const setTrue = useCallback(() => setValue(true), []);
   const setFalse = useCallback(() => setValue(false), []);
 

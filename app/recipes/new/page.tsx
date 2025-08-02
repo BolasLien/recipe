@@ -2,10 +2,7 @@ import RecipeForm from '../../../components/RecipeForm';
 import Breadcrumb from '../../../components/Breadcrumb';
 
 export default function NewRecipePage() {
-  const breadcrumbItems = [
-    { label: '首頁', href: '/' },
-    { label: '新增食譜' }
-  ];
+  const breadcrumbItems = [{ label: '首頁', href: '/' }, { label: '新增食譜' }];
 
   return (
     <div className="min-h-screen bg-gray-50">

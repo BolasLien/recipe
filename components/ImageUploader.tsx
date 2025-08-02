@@ -50,7 +50,7 @@ export default function ImageUploader({
         className="hidden"
         onChange={handleUpload}
       />
-      
+
       {/* 上傳按鈕區域 */}
       <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-orange-400 transition-colors">
         <div className="space-y-3">
@@ -76,14 +76,13 @@ export default function ImageUploader({
             <span>{progress}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
+            <div
               className="bg-gradient-to-r from-orange-400 to-orange-500 h-2 rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
         </div>
       )}
-
     </div>
   );
 }

@@ -12,7 +12,13 @@ interface ToastProps {
   duration?: number;
 }
 
-export default function Toast({ message, type, isVisible, onClose, duration = 4000 }: ToastProps) {
+export default function Toast({
+  message,
+  type,
+  isVisible,
+  onClose,
+  duration = 4000,
+}: ToastProps) {
   useEffect(() => {
     if (isVisible && duration > 0) {
       const timer = setTimeout(() => {
@@ -53,7 +59,9 @@ export default function Toast({ message, type, isVisible, onClose, duration = 40
 
   return (
     <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2 duration-300">
-      <div className={`${getToastStyles()} text-white px-6 py-4 rounded-lg shadow-lg border-l-4 max-w-sm`}>
+      <div
+        className={`${getToastStyles()} text-white px-6 py-4 rounded-lg shadow-lg border-l-4 max-w-sm`}
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <span className="text-lg">{getIcon()}</span>
@@ -92,7 +100,7 @@ export function useToast() {
   };
 
   const hideToast = () => {
-    setToast(prev => ({ ...prev, isVisible: false }));
+    setToast((prev) => ({ ...prev, isVisible: false }));
   };
 
   const ToastComponent = () => (

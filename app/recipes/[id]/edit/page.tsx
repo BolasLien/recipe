@@ -26,7 +26,7 @@ export default async function EditRecipePage({ params }: Props) {
   const breadcrumbItems = [
     { label: '首頁', href: '/' },
     { label: data.title, href: `/recipes/${data.id}` },
-    { label: '編輯食譜' }
+    { label: '編輯食譜' },
   ];
 
   return (
