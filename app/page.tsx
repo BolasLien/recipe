@@ -68,7 +68,7 @@ export default async function HomePage({ searchParams }: PageProps) {
       part.toLowerCase() === keyword.toLowerCase() ? (
         <mark
           key={i}
-          className="bg-gradient-to-r from-orange-200 to-yellow-200 px-1 rounded"
+          className="bg-gradient-to-r from-amber-200 to-yellow-200 px-1 rounded"
         >
           {part}
         </mark>
@@ -81,13 +81,13 @@ export default async function HomePage({ searchParams }: PageProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <header className="bg-gradient-to-r from-orange-400 via-orange-500 to-yellow-400">
-        <div className="container mx-auto px-4 py-8">
+      <header className="bg-amber-500">
+        <div className="container mx-auto px-4 py-16">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
               美味食譜
             </h1>
-            <p className="text-xl text-orange-100 mb-4 max-w-2xl mx-auto">
+            <p className="text-lg text-amber-100 max-w-xl mx-auto">
               探索精選食譜，創造美味時光
             </p>
           </div>
@@ -96,12 +96,12 @@ export default async function HomePage({ searchParams }: PageProps) {
 
       {/* Main Content */}
       <main
-        className="container mx-auto px-4 py-8"
+        className="container mx-auto px-4 py-8 sm:py-12"
         role="main"
         aria-label="食譜列表"
       >
         {/* Controls */}
-        <div className="mb-8 space-y-4">
+        <div className="mb-8 sm:mb-12 space-y-4 sm:space-y-6">
           {/* 搜尋列 */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <div className="flex-1">
@@ -110,7 +110,7 @@ export default async function HomePage({ searchParams }: PageProps) {
             <div className="flex items-center">
               <Link
                 href="/recipes/new"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-600 hover:to-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-200 shadow-sm hover:shadow-md h-11 whitespace-nowrap"
+                className="inline-flex items-center gap-2 bg-amber-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:bg-amber-600 focus:ring-2 focus:outline-none focus:ring-amber-300 transition-colors shadow-sm h-11 whitespace-nowrap"
                 aria-label="創建新的食譜"
               >
                 <svg
@@ -131,7 +131,6 @@ export default async function HomePage({ searchParams }: PageProps) {
               </Link>
             </div>
           </div>
-
           {/* 結果資訊列 */}
           {data && data.length > 0 && (
             <div className="flex items-center justify-between text-sm text-gray-600">
@@ -176,7 +175,7 @@ export default async function HomePage({ searchParams }: PageProps) {
             </p>
             <Link
               href="/recipes/new"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:from-orange-600 hover:to-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300 transition-all duration-200 shadow-sm hover:shadow-md h-11"
+              className="inline-flex items-center gap-2 bg-amber-500 text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:bg-amber-600 focus:ring-2 focus:outline-none focus:ring-amber-300 transition-colors shadow-sm h-11"
               aria-label={keyword ? '新增食譜' : '創建第一個食譜'}
             >
               <svg
@@ -197,14 +196,14 @@ export default async function HomePage({ searchParams }: PageProps) {
           </div>
         ) : (
           <section
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8"
             aria-label="食譜卡片列表"
           >
             {data?.map((recipe) => (
               <Link
                 key={recipe.id}
                 href={`/recipes/${recipe.id}`}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg"
+                className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
                 {/* Image Container */}
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -219,7 +218,7 @@ export default async function HomePage({ searchParams }: PageProps) {
                       blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNmZWYzZjI7c3RvcC1vcGFjaXR5OjEiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZmJlZDhiO3N0b3Atb3BhY2l0eToxIiAvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2cpIiAvPjwvc3ZnPg=="
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-orange-100 to-yellow-100 flex items-center justify-center">
+                    <div className="w-full h-full bg-gradient-to-br from-amber-100 to-yellow-100 flex items-center justify-center">
                       <div className="text-center text-gray-500">
                         <div className="text-4xl mb-2">🍳</div>
                         <p className="text-sm">暫無圖片</p>
@@ -242,10 +241,10 @@ export default async function HomePage({ searchParams }: PageProps) {
 
                   {/* Footer */}
                   <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center text-xs text-orange-600 bg-orange-50 px-3 py-1 rounded-full font-medium">
+                    <span className="inline-flex items-center text-xs text-amber-600 bg-amber-50 px-3 py-1 rounded-full font-medium">
                       食譜
                     </span>
-                    <div className="flex items-center text-orange-500">
+                    <div className="flex items-center text-amber-500">
                       <span className="text-sm font-medium mr-1">查看</span>
                       <svg
                         className="w-4 h-4"

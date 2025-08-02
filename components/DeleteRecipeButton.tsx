@@ -38,7 +38,7 @@ export default function DeleteRecipeButton({ recipeId }: { recipeId: string }) {
       <button
         onClick={() => setIsModalOpen(true)}
         disabled={loading}
-        className="flex items-center justify-center gap-2 w-full sm:w-auto text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 focus:ring-4 focus:outline-none focus:ring-red-300 transition-all duration-300 transform hover:scale-105 shadow-md"
+        className="flex items-center justify-center gap-2 w-full sm:w-auto text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-red-500 hover:bg-red-600 focus:ring-2 focus:outline-none focus:ring-red-300 transition-colors shadow-sm"
       >
         <span>🗑️</span>
         {loading ? '刪除中...' : '刪除'}
