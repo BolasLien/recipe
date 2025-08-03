@@ -4,19 +4,13 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import ReactMarkdown from 'react-markdown';
 import { supabase } from '../lib/supabase';
 import ImageUploader from './ImageUploader';
 import { useToast } from './Toast';
+import DynamicMarkdown from './DynamicMarkdown';
+import { Recipe } from '../lib/types';
 
-type Recipe = {
-  id: string;
-  title: string;
-  content: string | null;
-  image_url: string | null;
-};
-
-type Props = {
+type RecipeFormProps = {
   mode: 'create' | 'edit';
   recipe?: Recipe;
 };
@@ -26,7 +20,7 @@ type FormValues = {
   content: string;
 };
 
-export default function RecipeForm({ mode, recipe }: Props) {
+export default function RecipeForm({ mode, recipe }: RecipeFormProps) {
   const router = useRouter();
   const [imageUrl, setImageUrl] = useState<string>(recipe?.image_url || '');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -142,9 +136,9 @@ export default function RecipeForm({ mode, recipe }: Props) {
           <label className="form-label">內容預覽</label>
           <div className="bg-white border-2 border-gray-200 rounded-lg p-6 min-h-[200px]">
             <div className="markdown">
-              <ReactMarkdown>
+              <DynamicMarkdown>
                 {watch('content') || '預覽區域：請在上方輸入內容'}
-              </ReactMarkdown>
+              </DynamicMarkdown>
             </div>
           </div>
         </div>
