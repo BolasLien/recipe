@@ -29,7 +29,9 @@ export default function DynamicMarkdown({
 }: DynamicMarkdownProps) {
   return (
     <Suspense fallback={<MarkdownSkeleton />}>
-      <ReactMarkdown className={className}>{children}</ReactMarkdown>
+      <div className={className}>
+        <ReactMarkdown>{children}</ReactMarkdown>
+      </div>
     </Suspense>
   );
 }
